@@ -23,7 +23,7 @@ fi
 
 # Starting server
 if [[ -z $(node_pid) ]]; then
-  $NODE_PATH index.js > /dev/null &
+  $NODE_PATH index.js > ./logs/server.log 2>&1 &
   echo "node running (pid: $(node_pid))."
 else
   echo "node already running (pid: $(node_pid))."
