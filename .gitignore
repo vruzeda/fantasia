@@ -1,7 +1,12 @@
+###############
+# APPLICATION #
+###############
+data/*
+logs/*
+
 ########
 # NODE #
 ########
-
 node_modules
 npm-debug.log
 
