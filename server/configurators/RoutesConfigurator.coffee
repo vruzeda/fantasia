@@ -14,8 +14,6 @@ class RoutesConfigurator
       paths: ["#{@_clientPath}"]
       compilers:
         stub: (module, filename) =>
-          console.log "filename: #{filename}"
-
           if /ClientConfiguration/.test filename
             clientConfiguration = @_clientConfiguration()
             module._compile coffee.compile(clientConfiguration), filename
