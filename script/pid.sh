@@ -4,13 +4,13 @@ function parse_pid_for() {
 }
 
 function mongo_pid() {
-  parse_pid_for "$MONGO_PATH"
+  parse_pid_for "$MONGO_PATH/mongod"
 }
 
 function redis_pid() {
-  parse_pid_for "$REDIS_PATH"
+  parse_pid_for "$REDIS_PATH/redis-server"
 }
 
 function node_pid() {
-  parse_pid_for "$NODE_PATH"
+  parse_pid_for "$NODE_PATH/node"
 }
