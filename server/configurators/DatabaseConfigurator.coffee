@@ -2,6 +2,7 @@ mongoose = require "mongoose"
 
 
 models = [
+  "../models/Account"
 ]
 
 
