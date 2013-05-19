@@ -9,7 +9,7 @@ models = [
 class DatabaseConfigurator
 
   configure: ->
-    mongoose.connect "mongodb://localhost/wikimud"
+    mongoose.connect "mongodb://localhost/fantasia"
     mongoose.connection.once "open", ->
       require model for model in models
 
