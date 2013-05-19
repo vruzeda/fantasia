@@ -3,8 +3,9 @@ http     = require "http"
 socketIO = require "socket.io"
 
 ApplicationConfigurator = require "./configurators/ApplicationConfigurator"
-RoutesConfigurator      = require "./configurators/RoutesConfigurator"
+DatabaseConfigurator    = require "./configurators/DatabaseConfigurator"
 MessagesConfigurator    = require "./configurators/MessagesConfigurator"
+RoutesConfigurator      = require "./configurators/RoutesConfigurator"
 
 
 application = express()
@@ -17,11 +18,16 @@ serverPort  = parseInt process.env.NODE_PORT ? 5000
 applicationConfigurator = new ApplicationConfigurator clientPath
 applicationConfigurator.configure application
 
-routesConfigurator = new RoutesConfigurator clientPath, serverPort
-routesConfigurator.configure application
+databaseConfigurator = new DatabaseConfigurator
+databaseConfigurator.configure()
 
 messagesConfigurator = new MessagesConfigurator
 messagesConfigurator.configure io
+
+routesConfigurator = new RoutesConfigurator clientPath, serverPort
+routesConfigurator.configure application
+
+
 
 server.listen serverPort
 console.log "Express server listening on port #{serverPort}"
