@@ -2,7 +2,6 @@ express  = require "express"
 http     = require "http"
 socketIO = require "socket.io"
 
-HandlebarsConfigurator  = require "./configurators/HandlebarsConfigurator"
 ApplicationConfigurator = require "./configurators/ApplicationConfigurator"
 RoutesConfigurator      = require "./configurators/RoutesConfigurator"
 MessagesConfigurator    = require "./configurators/MessagesConfigurator"
@@ -14,8 +13,6 @@ io          = socketIO.listen server
 clientPath  = "#{__dirname}/../client"
 serverPort  = parseInt process.env.NODE_PORT ? 5000
 
-handlebarsConfigurator = new HandlebarsConfigurator
-handlebarsConfigurator.configure()
 
 applicationConfigurator = new ApplicationConfigurator clientPath
 applicationConfigurator.configure application

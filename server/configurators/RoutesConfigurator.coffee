@@ -1,8 +1,6 @@
 stitch = require "stitch"
 coffee = require "coffee-script"
 
-LoginService = require "../services/login/LoginService"
-
 
 class RoutesConfigurator
 
@@ -25,44 +23,11 @@ class RoutesConfigurator
     "module.exports = #{JSON.stringify clientConfiguration}"
 
   configure: (application) ->
-    application.get  "/",             @_index
-    application.get  "/fatPack.js",   @_fatPackage.createServer()
-    application.post "/login/signUp", @_signUp
-    application.post "/login/signIn", @_signIn
+    application.get "/",           @_index
+    application.get "/fatPack.js", @_fatPackage.createServer()
 
   _index: (request, response) =>
-    response.render "index",
-      title: "Hello, world!"
-
-  _signUp: (request, response) =>
-    username = request.body.username
-    password = request.body.password
-
-    LoginService.signUp username, password, (error) ->
-      if error?
-        response.render "error",
-          title: "Sign Up Error"
-          error: error
-
-      else
-        response.render "index",
-          title: "Hello, #{username}!"
-          username: username
-
-  _signIn: (request, response) =>
-    username = request.body.username
-    password = request.body.password
-
-    LoginService.signIn username, password, (error) ->
-      if error?
-        response.render "error",
-          title: "Sign In Error"
-          error: error
-
-      else
-        response.render "index",
-          title: "Hello, #{username}!"
-          username: username
+    response.render "index"
 
 
 module.exports = RoutesConfigurator

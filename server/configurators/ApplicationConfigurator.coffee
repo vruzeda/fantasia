@@ -8,7 +8,6 @@ class ApplicationConfigurator
   configure: (application) ->
     application.configure =>
       application.set "views", "#{@_clientPath}/views"
-      application.set "view engine", "hbs"
       application.use express.favicon()
       application.use express.logger "dev"
       application.use express.static "#{@_clientPath}/views"
