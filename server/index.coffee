@@ -4,13 +4,12 @@ socketIO = require "socket.io"
 
 ApplicationConfigurator = require "./configurators/ApplicationConfigurator"
 DatabaseConfigurator    = require "./configurators/DatabaseConfigurator"
-MessagesConfigurator    = require "./configurators/MessagesConfigurator"
+SessionsConfigurator    = require "./configurators/SessionsConfigurator"
 RoutesConfigurator      = require "./configurators/RoutesConfigurator"
 
 
 application = express()
 server      = http.createServer application
-io          = socketIO.listen server
 rootPath    = "#{__dirname}/.."
 serverPort  = parseInt process.env.NODE_PORT ? 5000
 
@@ -21,8 +20,8 @@ applicationConfigurator.configure application
 databaseConfigurator = new DatabaseConfigurator
 databaseConfigurator.configure()
 
-messagesConfigurator = new MessagesConfigurator
-messagesConfigurator.configure io
+sessionsConfigurator = new SessionsConfigurator
+sessionsConfigurator.configure server
 
 routesConfigurator = new RoutesConfigurator rootPath, serverPort
 routesConfigurator.configure application

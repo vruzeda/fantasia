@@ -9,7 +9,7 @@ class RoutesConfigurator
 
   _createFatPackage: ->
     stitch.createPackage
-      paths: ["#{@_rootPath}/client"]
+      paths: ["#{@_rootPath}/shared", "#{@_rootPath}/client"]
       compilers:
         stub: (module, filename) =>
           if /ClientConfiguration/.test filename

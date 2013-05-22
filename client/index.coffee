@@ -1,6 +1,12 @@
-ClientConfiguration = require "./configurations/ClientConfiguration"
+Session       = require "./controllers/Session"
+CookieManager = require "./controllers/CookieManager"
 
-console.log ClientConfiguration.serverURL
-socket = io.connect ClientConfiguration.serverURL
-socket.on "bla", (data) ->
-  console.log "bla: #{data}"
+
+session = new Session
+
+if CookieManager.hasItem "accountId"
+  console.log "accountId = #{CookieManager.getItem "accountId"}"
+
+else
+  session._accountController.signIn "519d3fa74b4de74a73000001", (error, accountId) ->
+    CookieManager.setItem "accountId", accountId
