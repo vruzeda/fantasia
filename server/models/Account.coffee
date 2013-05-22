@@ -26,8 +26,8 @@ AccountSchema.statics.create = (name, callback) ->
 
     callback null, account.toObject()
 
-AccountSchema.statics.read = (id, callback) ->
-  @findById id, (error, account) ->
+AccountSchema.statics.read = (accountId, callback) ->
+  @findById accountId, (error, account) ->
     if error?
       callback error, undefined
       return
