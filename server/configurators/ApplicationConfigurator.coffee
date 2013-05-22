@@ -3,14 +3,14 @@ express = require "express"
 
 class ApplicationConfigurator
 
-  constructor: (@_clientPath) ->
+  constructor: (@_rootPath) ->
 
   configure: (application) ->
     application.configure =>
-      application.set "views", "#{@_clientPath}/views"
+      application.set "views", "#{@_rootPath}/client/views"
       application.use express.favicon()
       application.use express.logger "dev"
-      application.use express.static "#{@_clientPath}/views"
+      application.use express.static "#{@_rootPath}/client/views"
       application.use express.bodyParser()
       application.use express.methodOverride()
       application.use application.router

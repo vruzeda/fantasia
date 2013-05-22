@@ -11,11 +11,11 @@ RoutesConfigurator      = require "./configurators/RoutesConfigurator"
 application = express()
 server      = http.createServer application
 io          = socketIO.listen server
-clientPath  = "#{__dirname}/../client"
+rootPath    = "#{__dirname}/.."
 serverPort  = parseInt process.env.NODE_PORT ? 5000
 
 
-applicationConfigurator = new ApplicationConfigurator clientPath
+applicationConfigurator = new ApplicationConfigurator rootPath
 applicationConfigurator.configure application
 
 databaseConfigurator = new DatabaseConfigurator
@@ -24,7 +24,7 @@ databaseConfigurator.configure()
 messagesConfigurator = new MessagesConfigurator
 messagesConfigurator.configure io
 
-routesConfigurator = new RoutesConfigurator clientPath, serverPort
+routesConfigurator = new RoutesConfigurator rootPath, serverPort
 routesConfigurator.configure application
 
 

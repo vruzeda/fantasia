@@ -4,12 +4,12 @@ coffee = require "coffee-script"
 
 class RoutesConfigurator
 
-  constructor: (@_clientPath, @_serverPort) ->
+  constructor: (@_rootPath, @_serverPort) ->
     @_fatPackage = @_createFatPackage()
 
   _createFatPackage: ->
     stitch.createPackage
-      paths: ["#{@_clientPath}"]
+      paths: ["#{@_rootPath}/client"]
       compilers:
         stub: (module, filename) =>
           if /ClientConfiguration/.test filename
