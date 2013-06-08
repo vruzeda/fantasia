@@ -1,12 +1,4 @@
-Session       = require "./controllers/Session"
-CookieManager = require "./controllers/CookieManager"
+ViewManager = require "./views/ViewManager"
 
 
-session = new Session
-
-if CookieManager.hasItem "accountId"
-  console.log "accountId = #{CookieManager.getItem "accountId"}"
-
-else
-  session.accountController.signIn "519d3fa74b4de74a73000001", (error, accountId) ->
-    CookieManager.setItem "accountId", accountId
+viewManeger = new ViewManager

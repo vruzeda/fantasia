@@ -5,15 +5,42 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/fatPack.js"></script>
     <script type="text/javascript">
-      require("./index");
+      function load() {
+        require("./index");
+      }
     </script>
   </head>
 
-  <body>
+  <body onload="javascript:load();">
     <div class="container">
       <h1 class="header"></h1>
 
-      <div class="description"></div>
+      <div class="login">
+        <div>
+          <h2>Sign up</h2>
+          <form class="signUp" action="javascript:void(0);">
+            <span>Username:</span>
+            <input class="username" type="text"></input>
+            <input type="submit"></input>
+          </form>
+
+          <h2>Sign in</h2>
+          <form class="signIn" action="javascript:void(0);">
+            <span>Account ID:</span>
+            <input class="accountId" type="text"></input>
+            <input type="submit"></input>
+          </form>
+        </div>
+      </div>
+
+      <div class="room">
+        <span class="description">Description</span>
+      </div>
+
+      <div class="footer">
+        <span>Account ID: </span><span class="accountId"></span>
+        <a class="logout" href="javascript:void(0);">Logout</a>
+      </div>
     </div>
   </body>
 </html>
