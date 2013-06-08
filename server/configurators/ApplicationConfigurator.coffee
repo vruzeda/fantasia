@@ -7,10 +7,10 @@ class ApplicationConfigurator
 
   configure: (application) ->
     application.configure =>
-      application.set "views", "#{@_rootPath}/client/views"
+      application.set "views", "#{@_rootPath}/client/html"
       application.use express.favicon()
       application.use express.logger "dev"
-      application.use express.static "#{@_rootPath}/client/views"
+      application.use express.static "#{@_rootPath}/client/html"
       application.use express.bodyParser()
       application.use express.methodOverride()
       application.use application.router
