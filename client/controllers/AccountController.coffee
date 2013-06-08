@@ -9,7 +9,7 @@ class AccountController
         callback error, undefined
         return
 
-      callback null, account.id
+      callback null, account
 
   signIn: (accountId, callback) ->
     @_session.sendAndReceive "signIn", accountId, (error, account) =>
@@ -18,7 +18,7 @@ class AccountController
         callback error, undefined
         return
 
-      callback null, account.id
+      callback null, account
 
 
 module.exports = AccountController

@@ -31,32 +31,37 @@ class AccountView
         @_signIn accountId
 
   _signUp: (username) ->
-    @_session.accountController.signUp username, (error, accountId) =>
+    @_session.accountController.signUp username, (error, account) =>
       if error?
         alert error.message
         return
 
-      CookieManager.setItem "accountId", accountId
-      @_hideLogin accountId
+      CookieManager.setItem "accountId", account.id
+      @_hideLogin account
 
   _signIn: (accountId) ->
-    @_session.accountController.signIn accountId, (error, accountId) =>
+    @_session.accountController.signIn accountId, (error, account) =>
       if error?
         alert error.message
         return
 
-      CookieManager.setItem "accountId", accountId
-      @_hideLogin accountId
+      CookieManager.setItem "accountId", account.id
+      @_hideLogin account
 
-  _hideLogin: (accountId) ->
+  _hideLogin: (account) ->
+    @_showHeader account
+    @_showFooter account
     $(".login").hide()
     $(".room").show()
-    @_showFooter accountId
     @_viewManager.changeViewTo "RoomView"
 
-  _showFooter: (accountId) ->
+  _showHeader: (account) ->
+    $(".header").show()
+    $(".header").html "Welcome, #{account.name}"
+
+  _showFooter: (account) ->
     $(".footer").show()
-    $(".footer .accountId").html accountId
+    $(".footer .accountId").html account.id
     $(".footer .logout").click =>
       $(".footer .accountId").empty()
       CookieManager.removeItem "accountId"

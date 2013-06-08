@@ -4,7 +4,7 @@ $ = require "../libs/jquery"
 class RoomView
 
   constructor: (@_viewManager, @_session) ->
-    $(".header").html "Room"
+    $(".room .title").html "Room title"
     $(".room .description").html "Room description"
 
 
