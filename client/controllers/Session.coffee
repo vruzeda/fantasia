@@ -3,6 +3,7 @@ ClientConfiguration = require "../configurations/ClientConfiguration"
 
 # Controllers
 AccountController = require "./AccountController"
+RoomController    = require "./RoomController"
 
 
 class Session extends AbstractSession
@@ -11,6 +12,7 @@ class Session extends AbstractSession
     super io.connect ClientConfiguration.serverURL
 
     @accountController = new AccountController @
+    @roomController    = new RoomController    @
 
 
 module.exports = Session

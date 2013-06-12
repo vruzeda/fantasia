@@ -1,4 +1,5 @@
-Account = require "../models/Account"
+Models  = require "../models/Models"
+Account = Models.get "Account"
 
 
 class AccountController
@@ -15,7 +16,7 @@ class AccountController
         return
 
       @_session.register account.id
-      callback null, account
+      callback null, account.toObject()
 
   _signIn: (accountId, callback) =>
     Account.read accountId, (error, account) =>
@@ -24,7 +25,7 @@ class AccountController
         return
 
       @_session.register account.id
-      callback null, account
+      callback null, account.toObject()
 
   _signOut: =>
     @_session.unregister()

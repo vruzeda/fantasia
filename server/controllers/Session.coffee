@@ -2,6 +2,7 @@ AbstractSession = require "../../shared/session/AbstractSession"
 
 # Controllers
 AccountController = require "./AccountController"
+RoomController    = require "./RoomController"
 
 
 class Session extends AbstractSession
@@ -10,12 +11,13 @@ class Session extends AbstractSession
     super socket
 
     @_accountController = new AccountController @
+    @_roomController    = new RoomController    @
 
-  register: (@_playerId) ->
-    @_sessionManager.register @_playerId, @
+  register: (@accountId) ->
+    @_sessionManager.register @accountId, @
 
   unregister: ->
-    @_sessionManager.unregister @_playerId if @_playerId?
+    @_sessionManager.unregister @accountId if @accountId?
 
 
 module.exports = Session
