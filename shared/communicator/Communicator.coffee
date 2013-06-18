@@ -9,7 +9,8 @@ class Communicator
     @_socket.on "disconnect", =>
       @_handleEvent "disconnect"
 
-    @_socket.on "event", ({name, data}, callback) =>
+    @_socket.on "event", (json, callback) =>
+      {name, data} = JSON.parse json
       @_handleEvent name, data..., callback
 
   _handleEvent: (name, data..., callback) ->
@@ -22,10 +23,10 @@ class Communicator
     @_handlers[name].push handler
 
   send: (name, data...) ->
-    @_socket.emit "event", {name, data}
+    @_socket.emit "event", JSON.stringify({name, data})
 
   sendAndReceive: (name, data..., callback) ->
-    @_socket.emit "event", {name, data}, callback
+    @_socket.emit "event", JSON.stringify({name, data}), callback
 
 
 module.exports = Communicator

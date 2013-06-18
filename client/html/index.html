@@ -2,6 +2,8 @@
   <head>
     <title>Fantasia</title>
 
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/fatPack.js"></script>
     <script type="text/javascript">
@@ -36,6 +38,11 @@
       <div class="room">
         <h2 class="title">Room</h2>
         <span class="description">Description</span>
+        <span class="exits">Exits</span>
+
+        <form class="execute" action="javascript:void(0);">
+          <input class="command" type="text"></input>
+        </form>
       </div>
 
       <div class="footer">

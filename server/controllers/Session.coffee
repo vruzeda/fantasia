@@ -2,6 +2,7 @@ AbstractSession = require "../../shared/session/AbstractSession"
 
 # Controllers
 AccountController = require "./AccountController"
+CommandController = require "./CommandController"
 RoomController    = require "./RoomController"
 
 
@@ -10,8 +11,9 @@ class Session extends AbstractSession
   constructor: (@_sessionManager, socket) ->
     super socket
 
-    @_accountController = new AccountController @
-    @_roomController    = new RoomController    @
+    @accountController = new AccountController @
+    @commandController = new CommandController @
+    @roomController    = new RoomController    @
 
   register: (@accountId) ->
     @_sessionManager.register @accountId, @

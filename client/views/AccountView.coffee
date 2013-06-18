@@ -5,7 +5,7 @@ CookieManager = require "../controllers/CookieManager"
 
 class AccountView
 
-  constructor: (@_viewManager, @_session) ->
+  constructor: (@_session) ->
     unless CookieManager.hasItem "accountId"
       @_showLogin()
 
@@ -42,7 +42,8 @@ class AccountView
   _signIn: (accountId) ->
     @_session.accountController.signIn accountId, (error, account) =>
       if error?
-        alert error.message
+        CookieManager.removeItem "accountId"
+        @_showLogin()
         return
 
       CookieManager.setItem "accountId", account.id
@@ -53,7 +54,7 @@ class AccountView
     @_showFooter account
     $(".login").hide()
     $(".room").show()
-    @_viewManager.changeViewTo "RoomView"
+    @_session.viewManager.changeViewTo "RoomView"
 
   _showHeader: (account) ->
     $(".header").show()
@@ -65,7 +66,7 @@ class AccountView
     $(".footer .logout").click =>
       $(".footer .accountId").empty()
       CookieManager.removeItem "accountId"
-      @_viewManager.changeViewTo "AccountView"
+      @_session.viewManager.changeViewTo "AccountView"
 
 
 module.exports = AccountView

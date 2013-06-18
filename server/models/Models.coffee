@@ -2,7 +2,6 @@
 MODELS = [
   "Account"
   "Character"
-  "Exit"
   "Room"
   "Universe"
 ]

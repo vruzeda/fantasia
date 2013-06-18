@@ -5,11 +5,11 @@ Account = Models.get "Account"
 class AccountController
 
   constructor: (@_session) ->
-    @_session.on "signUp",     @_signUp
-    @_session.on "signIn",     @_signIn
-    @_session.on "disconnect", @_signOut
+    @_session.on "signUp",     @signUp
+    @_session.on "signIn",     @signIn
+    @_session.on "disconnect", @signOut
 
-  _signUp: (username, callback) =>
+  signUp: (username, callback) =>
     Account.create username, (error, account) =>
       if error?
         callback error, undefined
@@ -18,7 +18,7 @@ class AccountController
       @_session.register account.id
       callback null, account.toObject()
 
-  _signIn: (accountId, callback) =>
+  signIn: (accountId, callback) =>
     Account.read accountId, (error, account) =>
       if error?
         callback error, undefined
@@ -27,7 +27,7 @@ class AccountController
       @_session.register account.id
       callback null, account.toObject()
 
-  _signOut: =>
+  signOut: =>
     @_session.unregister()
 
 
