@@ -1,7 +1,10 @@
 COMMANDS =
-  refresh:    /^refresh/i
-  createRoom: /^create room "([^"]*)" at "([^"]*)"/i
-  changeRoom: /^go "([^"]*)"/i
+  refresh:      /^refresh/i
+  createExit:   /^create exit ([^:]*)/i
+  renameExit:   /^rename exit ([^:]*):([^:]*)/i
+  renameRoom:   /^rename room ([^:]*)/i
+  describeRoom: /^describe room (.*)/i
+  changeRoom:   /^go ([^:]*)/i
 
 
 class CommandController
@@ -16,8 +19,17 @@ class CommandController
     commandFound or= @_isCommand COMMANDS.refresh, command, =>
       @_session.roomController.refreshRoom callback
 
-    commandFound or= @_isCommand COMMANDS.createRoom, command, (name, direction) =>
-      @_session.roomController.createRoom name, direction, callback
+    commandFound or= @_isCommand COMMANDS.createExit, command, (direction) =>
+      @_session.roomController.createExit direction, callback
+
+    commandFound or= @_isCommand COMMANDS.renameExit, command, (oldDirection, newDirection) =>
+      @_session.roomController.renameExit oldDirection, newDirection, callback
+
+    commandFound or= @_isCommand COMMANDS.renameRoom, command, (name) =>
+      @_session.roomController.renameRoom name, callback
+
+    commandFound or= @_isCommand COMMANDS.describeRoom, command, (description) =>
+      @_session.roomController.describeRoom description, callback
 
     commandFound or= @_isCommand COMMANDS.changeRoom, command, (direction) =>
       @_session.roomController.changeRoom direction, callback

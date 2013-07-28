@@ -44,13 +44,13 @@ class RoomController
 
         callback null
 
-  createRoom: (name, direction, callback) ->
+  createExit: (direction, callback) ->
     unless @_session.accountId?
       callback new Error("Unauthorized action. You must login first."), undefined
 
     accountId = @_session.accountId
 
-    Room.create name, "You see an empty space...", (error, newRoom) =>
+    Room.create "Void", "You see an empty space...", (error, voidRoom) =>
       if error?
         callback error
         return
@@ -60,12 +60,71 @@ class RoomController
           callback error
           return
 
-        currentRoom.addExit direction, newRoom, (error) =>
+        voidRoom.addExit "somewhere", currentRoom, (error) =>
           if error?
             callback error
             return
 
-          @refreshRoom callback
+          currentRoom.addExit direction, voidRoom, (error) =>
+            if error?
+              callback error
+              return
+
+            @refreshRoom callback
+
+  renameExit: (oldDirection, newDirection, callback) ->
+    unless @_session.accountId?
+      callback new Error("Unauthorized action. You must login first."), undefined
+
+    accountId = @_session.accountId
+
+    @_getCurrentRoom accountId, (error, currentRoom) =>
+      if error?
+        callback error
+        return
+
+      currentRoom.renameExit oldDirection, newDirection, (error) =>
+        if error?
+          callback error
+          return
+
+        @refreshRoom callback
+
+  renameRoom: (name, callback) ->
+    unless @_session.accountId?
+      callback new Error("Unauthorized action. You must login first."), undefined
+
+    accountId = @_session.accountId
+
+    @_getCurrentRoom accountId, (error, currentRoom) =>
+      if error?
+        callback error
+        return
+
+      currentRoom.renameRoom name, (error) =>
+        if error?
+          callback error
+          return
+
+        @refreshRoom callback
+
+  describeRoom: (description, callback) ->
+    unless @_session.accountId?
+      callback new Error("Unauthorized action. You must login first."), undefined
+
+    accountId = @_session.accountId
+
+    @_getCurrentRoom accountId, (error, currentRoom) =>
+      if error?
+        callback error
+        return
+
+      currentRoom.describeRoom description, (error) =>
+        if error?
+          callback error
+          return
+
+        @refreshRoom callback
 
   changeRoom: (direction, callback) ->
     unless @_session.accountId?
