@@ -4,8 +4,10 @@ Session  = require "./Session"
 
 class SessionManagerInstance
 
-  constructor: (server) ->
+  constructor: ->
     @_sessions = {}
+
+  configure: (server) ->
     @_listenToServer server
 
   _listenToServer: (server) ->
@@ -25,8 +27,13 @@ class SessionManager
 
   @_instance = null
 
+  @getInstance: ->
+    @_instance = new SessionManagerInstance unless @_instance?
+    @_instance
+
   @configure: (server) ->
-    @_instance = new SessionManagerInstance server
+    instance = @getInstance()
+    instance.configure server
 
 
 module.exports = SessionManager
