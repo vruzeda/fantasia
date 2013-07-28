@@ -17,7 +17,7 @@ class RoomView extends BaseCommandView
 
   drawRoom: (room) ->
     $(".room .title").html room.name
-    $(".room .description").html room.description
+    $(".room .description").html room.description.replace /([^.!?])$/, "$1."
 
     if room.exits?
       exits = (exit.direction for exit in room.exits)
