@@ -1,7 +1,10 @@
+Controllers = require "./Controllers"
+
 Models    = require "../models/Models"
 Character = Models.get "Character"
 Exit      = Models.get "Exit"
 Room      = Models.get "Room"
+
 
 
 class RoomController
@@ -28,8 +31,18 @@ class RoomController
         callback error
         return
 
-      @_session.send "room", currentRoomObject
-      callback null
+      Character.readAllAtRoom currentRoomObject, (error, characters) =>
+        if error?
+          callback error
+          return
+
+        SessionManager = Controllers.get "SessionManager"
+
+        for character in characters when SessionManager.isOnline character.accountId
+          session = SessionManager.getSession character.accountId
+          session.send "room", currentRoomObject
+
+        callback null
 
   createRoom: (name, direction, callback) ->
     unless @_session.accountId?

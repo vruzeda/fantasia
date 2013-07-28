@@ -22,6 +22,12 @@ class SessionManagerInstance
   unregister: (accountId) ->
     delete @_sessions[accountId]
 
+  isOnline: (accountId) ->
+    @_sessions[accountId]?
+
+  getSession: (accountId) ->
+    @_sessions[accountId]
+
 
 class SessionManager
 
@@ -34,6 +40,14 @@ class SessionManager
   @configure: (server) ->
     instance = @getInstance()
     instance.configure server
+
+  @isOnline: (accountId) ->
+    instance = @getInstance()
+    instance.isOnline accountId
+
+  @getSession: (accountId) ->
+    instance = @getInstance()
+    instance.getSession accountId
 
 
 module.exports = SessionManager

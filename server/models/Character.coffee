@@ -49,6 +49,20 @@ CharacterSchema.statics.read = (accountId, callback) ->
       console.error "Error reading character for account ID #{accountId}: No such character"
       callback new Error("No such character"), undefined
 
+CharacterSchema.statics.readAllAtRoom = (room, callback) ->
+  @find {currentRoom: room.id}, (error, characters) ->
+    if error?
+      console.error "Error reading characters at room with ID #{room.id}: #{error.message}"
+      callback error, undefined
+      return
+
+    if characters.length > 0
+      callback null, characters
+
+    else
+      console.error "Error reading characters at room with ID #{room.id}: Empty room"
+      callback new Error("Empty room"), undefined
+
 CharacterSchema.statics.update = (accountId, currentRoom, callback) ->
   @read accountId, (error, character) ->
     if error?
