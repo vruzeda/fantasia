@@ -74,6 +74,10 @@ RoomSchema.methods.describeRoom = (description, callback) ->
 
     callback null
 
+RoomSchema.methods.findExit = (direction) ->
+  {exit} = @_findExit direction
+  exit
+
 RoomSchema.methods.renameExit = (oldDirection, newDirection, callback) ->
   @removeExit oldDirection, (error, exit) =>
     if error?

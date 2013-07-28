@@ -137,7 +137,8 @@ class RoomController
         callback error
         return
 
-      exit = exit for exit in currentRoom.exits when direction.toLowerCase() is exit.direction.toLowerCase()
+      exit = currentRoom.findExit direction
+
       if exit?
         Character.update accountId, exit.room, (error) =>
           if error?
