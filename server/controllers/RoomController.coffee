@@ -1,4 +1,5 @@
-Controllers = require "./Controllers"
+BaseController = require "./BaseController"
+Controllers    = require "./Controllers"
 
 Models    = require "../models/Models"
 Character = Models.get "Character"
@@ -7,18 +8,15 @@ Room      = Models.get "Room"
 
 
 
-class RoomController
+class RoomController extends BaseController
 
-  constructor: (@_session) ->
+  constructor: (session) ->
+    super session
+
     @_session.on "getCurrentRoom", @getCurrentRoom
 
   getCurrentRoom: (callback) =>
-    unless @_session.accountId?
-      callback new Error("Unauthorized action. You must login first."), undefined
-
-    accountId = @_session.accountId
-
-    @_getCurrentRoom accountId, (error, currentRoom) ->
+    @_getCurrentRoom (error, currentRoom) ->
       if error?
         callback error, undefined
         return
@@ -45,17 +43,12 @@ class RoomController
         callback null
 
   createExit: (direction, callback) ->
-    unless @_session.accountId?
-      callback new Error("Unauthorized action. You must login first."), undefined
-
-    accountId = @_session.accountId
-
-    Room.create "Void", "You see an empty space...", (error, voidRoom) =>
+    @_getCurrentRoom (error, currentRoom) =>
       if error?
         callback error
         return
 
-      @_getCurrentRoom accountId, (error, currentRoom) =>
+      Room.create "Void", "You see an empty space...", (error, voidRoom) =>
         if error?
           callback error
           return
@@ -73,12 +66,7 @@ class RoomController
             @refreshRoom callback
 
   renameExit: (oldDirection, newDirection, callback) ->
-    unless @_session.accountId?
-      callback new Error("Unauthorized action. You must login first."), undefined
-
-    accountId = @_session.accountId
-
-    @_getCurrentRoom accountId, (error, currentRoom) =>
+    @_getCurrentRoom (error, currentRoom) =>
       if error?
         callback error
         return
@@ -91,12 +79,7 @@ class RoomController
         @refreshRoom callback
 
   renameRoom: (name, callback) ->
-    unless @_session.accountId?
-      callback new Error("Unauthorized action. You must login first."), undefined
-
-    accountId = @_session.accountId
-
-    @_getCurrentRoom accountId, (error, currentRoom) =>
+    @_getCurrentRoom (error, currentRoom) =>
       if error?
         callback error
         return
@@ -109,12 +92,7 @@ class RoomController
         @refreshRoom callback
 
   describeRoom: (description, callback) ->
-    unless @_session.accountId?
-      callback new Error("Unauthorized action. You must login first."), undefined
-
-    accountId = @_session.accountId
-
-    @_getCurrentRoom accountId, (error, currentRoom) =>
+    @_getCurrentRoom (error, currentRoom) =>
       if error?
         callback error
         return
@@ -127,12 +105,7 @@ class RoomController
         @refreshRoom callback
 
   changeRoom: (direction, callback) ->
-    unless @_session.accountId?
-      callback new Error("Unauthorized action. You must login first."), undefined
-
-    accountId = @_session.accountId
-
-    @_getCurrentRoom accountId, (error, currentRoom) =>
+    @_getCurrentRoom (error, currentRoom) =>
       if error?
         callback error
         return
@@ -140,7 +113,7 @@ class RoomController
       exit = currentRoom.findExit direction
 
       if exit?
-        Character.update accountId, exit.room, (error) =>
+        Character.update @_session.accountId, exit.room, (error) =>
           if error?
             callback error
             return
@@ -150,18 +123,23 @@ class RoomController
       else
         callback new Error("There's nothing at #{direction}.")
 
-  _getCurrentRoom: (accountId, callback) ->
-    Character.read accountId, (error, character) ->
+  _getCurrentRoom: (callback) ->
+    @_requireAccountId (error, accountId) =>
       if error?
         callback error, undefined
         return
 
-      Room.read character.currentRoom, (error, currentRoom) ->
+      Character.read accountId, (error, character) ->
         if error?
           callback error, undefined
           return
 
-        callback null, currentRoom
+        Room.read character.currentRoom, (error, currentRoom) ->
+          if error?
+            callback error, undefined
+            return
+
+          callback null, currentRoom
 
 
 module.exports = RoomController

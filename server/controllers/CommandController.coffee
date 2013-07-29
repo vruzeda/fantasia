@@ -1,3 +1,5 @@
+BaseController = require "./BaseController"
+
 COMMANDS =
   refresh:      /^refresh/i
   createExit:   /^create exit ([^:]*)/i
@@ -7,9 +9,11 @@ COMMANDS =
   changeRoom:   /^go ([^:]*)/i
 
 
-class CommandController
+class CommandController extends BaseController
 
-  constructor: (@_session) ->
+  constructor: (session) ->
+    super session
+
     @_session.on "executeCommand", @executeCommand
 
   executeCommand: (command, callback) =>

@@ -1,10 +1,14 @@
+BaseController = require "./BaseController"
+
 Models  = require "../models/Models"
 Account = Models.get "Account"
 
 
-class AccountController
+class AccountController extends BaseController
 
-  constructor: (@_session) ->
+  constructor: (session) ->
+    super session
+
     @_session.on "signUp",     @signUp
     @_session.on "signIn",     @signIn
     @_session.on "disconnect", @signOut
