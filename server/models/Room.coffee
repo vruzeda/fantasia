@@ -79,17 +79,27 @@ RoomSchema.methods.findExit = (direction) ->
   exit
 
 RoomSchema.methods.renameExit = (oldDirection, newDirection, callback) ->
-  @removeExit oldDirection, (error, exit) =>
+  {exit: oldExit} = @_findExit oldDirection
+  {exit: newExit} = @_findExit newDirection
+
+  unless oldExit?
+    console.error "Error renaming exit from room with ID #{@id}: No exit at #{oldDirection}"
+    callback new Error("No exit at #{oldDirection}"), undefined
+    return
+
+  if newExit?
+    console.error "Error adding exit to room with ID #{@id}: Duplicated exit at \"#{newDirection}\""
+    callback new Error("Duplicated exit at \"#{newDirection}\""), undefined
+    return
+
+  oldExit.direction = newDirection
+  @save (error) =>
     if error?
+      console.error "Error renaming exit from room with ID #{@id}: #{error.message}"
       callback error, undefined
       return
 
-    @addExit newDirection, {id: exit.room}, (error, exit) =>
-      if error?
-        callback error, undefined
-        return
-
-      callback null, exit
+    callback null, oldExit
 
 RoomSchema.methods.addExit = (direction, room, callback) ->
   {exit} = @_findExit direction
