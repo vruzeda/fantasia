@@ -63,6 +63,12 @@ class AccountView
   _showFooter: (account) ->
     $(".footer").show()
     $(".footer .accountId").html account.id
+    $(".footer .helpButton").click ->
+      $(".helpContainer").show "linear", ->
+        $("body").click ->
+          $(".helpContainer").hide "linear", ->
+            $("body").unbind "click"
+
     $(".footer .logout").click =>
       $(".footer .accountId").empty()
       CookieManager.removeItem "accountId"

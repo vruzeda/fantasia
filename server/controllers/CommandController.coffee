@@ -3,6 +3,8 @@ BaseController = require "./BaseController"
 COMMANDS =
   refresh:      /^refresh/i
   createExit:   /^create exit ([^:]*)/i
+  startLink:    /^start link ([^:]*)/i
+  closeLink:    /^close link ([^:]*)/i
   renameExit:   /^rename exit ([^:]*):([^:]*)/i
   renameRoom:   /^rename room ([^:]*)/i
   describeRoom: /^describe room (.*)/i
@@ -25,6 +27,12 @@ class CommandController extends BaseController
 
     commandFound or= @_isCommand COMMANDS.createExit, command, (direction) =>
       @_session.roomController.createExit direction, callback
+
+    commandFound or= @_isCommand COMMANDS.startLink, command, (direction) =>
+      @_session.roomController.startLink direction, callback
+
+    commandFound or= @_isCommand COMMANDS.closeLink, command, (direction) =>
+      @_session.roomController.closeLink direction, callback
 
     commandFound or= @_isCommand COMMANDS.renameExit, command, (oldDirection, newDirection) =>
       @_session.roomController.renameExit oldDirection, newDirection, callback
