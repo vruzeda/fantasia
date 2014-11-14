@@ -11,4 +11,7 @@ div.popover {
   background-color: white; }
 
 div.helpContainer {
-  width: 500px; }
+  width: 600px; }
+
+span.command {
+  font-family: monospace; }

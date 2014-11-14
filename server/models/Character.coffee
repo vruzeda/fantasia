@@ -15,6 +15,14 @@ CharacterSchema = mongoose.Schema
     type: ObjectId
     required: true
 
+  linkingDirection:
+    type: String
+    required: false
+
+  linkingRoom:
+    type: ObjectId
+    required: false
+
 CharacterSchema.options.toObject ?= {}
 CharacterSchema.options.toObject.virtuals = true
 
@@ -63,16 +71,48 @@ CharacterSchema.statics.readAllAtRoom = (room, callback) ->
       console.error "Error reading characters at room with ID #{room.id}: Empty room"
       callback new Error("Empty room"), undefined
 
-CharacterSchema.statics.update = (accountId, currentRoom, callback) ->
+CharacterSchema.statics.changeRoom = (accountId, newRoom, callback) ->
   @read accountId, (error, character) ->
     if error?
       callback error
       return
 
-    character.currentRoom = currentRoom
+    character.currentRoom = newRoom
     character.save (error) ->
       if error?
-        console.error "Error updating character for account ID #{accountId}: #{error.message}"
+        console.error "Error changing room for account ID #{accountId}: #{error.message}"
+        callback error
+        return
+
+      callback null
+
+CharacterSchema.statics.startLink = (accountId, linkingDirectionA, linkingRoomA, callback) ->
+  @read accountId, (error, character) ->
+    if error?
+      callback error
+      return
+
+    character.linkingDirection = linkingDirectionA
+    character.linkingRoom = linkingRoomA
+    character.save (error) ->
+      if error?
+        console.error "Error starting link for account ID #{accountId}: #{error.message}"
+        callback error
+        return
+
+      callback null
+
+CharacterSchema.statics.closeLink = (accountId, callback) ->
+  @read accountId, (error, character) ->
+    if error?
+      callback error
+      return
+
+    character.linkingDirection = null
+    character.linkingRoom = null
+    character.save ->
+      if error?
+        console.error "Error closing link for account ID #{accountId}: #{error.message}"
         callback error
         return
 

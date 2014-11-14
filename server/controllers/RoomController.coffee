@@ -65,6 +65,57 @@ class RoomController extends BaseController
 
             @refreshRoom callback
 
+  startLink: (direction, callback) ->
+    @_getCurrentRoom (error, currentRoom) =>
+      if error?
+        callback error
+        return
+
+      Character.startLink @_session.accountId, direction, currentRoom.id, (error) =>
+        if error?
+          callback error
+          return
+
+        @refreshRoom callback
+
+  closeLink: (direction, callback) ->
+    Character.read @_session.accountId, (error, character) =>
+      if error?
+        callback error
+        return
+
+      unless character.linkingDirection? and character.linkingRoom?
+        console.error "Error closing link for account ID #{character.accountId}: Trying to close a link before starting one"
+        callback new Error("Trying to close a link before starting one")
+        return
+
+      Room.read character.linkingRoom, (error, roomA) =>
+        if error?
+          callback error
+          return
+
+        @_getCurrentRoom (error, roomB) =>
+          if error?
+            callback error
+            return
+
+          roomA.addExit character.linkingDirection, roomB, (error) =>
+            if error?
+              callback error
+              return
+
+            roomB.addExit direction, roomA, (error) =>
+              if error?
+                callback error
+                return
+
+              Character.closeLink @_session.accountId, (error) =>
+                if error?
+                  callback error
+                  return
+
+                @refreshRoom callback
+
   renameExit: (oldDirection, newDirection, callback) ->
     @_getCurrentRoom (error, currentRoom) =>
       if error?
@@ -113,7 +164,7 @@ class RoomController extends BaseController
       exit = currentRoom.findExit direction
 
       if exit?
-        Character.update @_session.accountId, exit.room, (error) =>
+        Character.changeRoom @_session.accountId, exit.room, (error) =>
           if error?
             callback error
             return

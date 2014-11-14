@@ -1,6 +1,5 @@
 express  = require "express"
 http     = require "http"
-socketIO = require "socket.io"
 
 ApplicationConfigurator = require "./configurators/ApplicationConfigurator"
 DatabaseConfigurator    = require "./configurators/DatabaseConfigurator"

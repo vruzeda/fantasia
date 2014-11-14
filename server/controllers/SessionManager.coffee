@@ -12,7 +12,6 @@ class SessionManagerInstance
 
   _listenToServer: (server) ->
     io = socketIO.listen server
-    io.set "log level", 1
     io.sockets.on "connection", (socket) =>
       session = new Session @, socket
 
