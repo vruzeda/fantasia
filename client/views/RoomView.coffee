@@ -22,13 +22,22 @@ class RoomView extends BaseCommandView
     if room.exits?
       exits = (exit.direction for exit in room.exits)
 
+      exitsHtml
       switch exits.length
         when 0
-          $(".room .exits").html ""
+          exitsHtml = ""
         when 1
-          $(".room .exits").html "You see an exit at #{exits[0]}."
+          exitsHtml = "You see an exit at <a class=\"roomLink\" href=\"javascript:void(0);\">#{exits[0]}</a>"
         else
-          $(".room .exits").html "You see exits at #{exits[0..-2].join(", ") + " and " + exits[exits.length - 1]}."
+          exitsHtml = "You see exits at "
+          for exit, index in exits[0..-2]
+            exitsHtml += ", " if index > 0
+            exitsHtml += "<a class=\"roomLink\" href=\"javascript:void(0);\">#{exit}</a>"
+          exitsHtml += " and <a class=\"roomLink\" href=\"javascript:void(0);\">#{exits[exits.length - 1]}</a>."
+
+      $(".room .exits").html exitsHtml
+      $(".room .exits .roomLink").click (event) =>
+        @_session.commandController.executeCommand "go " + $(event.currentTarget).html()
 
 
 module.exports = RoomView
