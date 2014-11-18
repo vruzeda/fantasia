@@ -4,7 +4,7 @@ coffee = require "coffee-script"
 
 class RoutesConfigurator
 
-  constructor: (@_rootPath, @_serverPort) ->
+  constructor: (@_rootPath, @_serverAddress, @_serverPort) ->
     @_fatPackage = @_createFatPackage()
 
   _createFatPackage: ->
@@ -18,7 +18,7 @@ class RoutesConfigurator
 
   _clientConfiguration: ->
     clientConfiguration =
-      serverURL: "http://localhost:#{@_serverPort}"
+      serverURL: "http://#{@_serverAddress}:#{@_serverPort}"
 
     "module.exports = #{JSON.stringify clientConfiguration}"
 

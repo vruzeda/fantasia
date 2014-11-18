@@ -10,7 +10,7 @@ RoutesConfigurator = require "./RoutesConfigurator"
 
 class ApplicationConfigurator
 
-  constructor: (@_rootPath, @_serverPort) ->
+  constructor: (@_rootPath, @_serverAddress, @_serverPort) ->
 
   configure: (application) ->
     application.set "views", "#{@_rootPath}/client/html"
@@ -20,7 +20,7 @@ class ApplicationConfigurator
     application.use bodyParser.json()
     application.use methodOverride()
 
-    routesConfigurator = new RoutesConfigurator @_rootPath, @_serverPort
+    routesConfigurator = new RoutesConfigurator @_rootPath, @_serverAddress, @_serverPort
     routesConfigurator.configure application
 
     if process.env.NODE_ENV == "development"

@@ -6,14 +6,14 @@ DatabaseConfigurator    = require "./configurators/DatabaseConfigurator"
 SessionsConfigurator    = require "./configurators/SessionsConfigurator"
 
 
+application   = express()
+server        = http.createServer application
+rootPath      = "#{__dirname}/.."
+serverAddress = process.env.NODE_ADDRESS ? "localhost"
+serverPort    = parseInt process.env.NODE_PORT ? 5000
 
-application = express()
-server      = http.createServer application
-rootPath    = "#{__dirname}/.."
-serverPort  = parseInt process.env.NODE_PORT ? 5000
 
-
-applicationConfigurator = new ApplicationConfigurator rootPath, serverPort
+applicationConfigurator = new ApplicationConfigurator rootPath, serverAddress, serverPort
 applicationConfigurator.configure application
 
 databaseConfigurator = new DatabaseConfigurator
