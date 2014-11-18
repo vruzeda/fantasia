@@ -1,3 +1,4 @@
+validator      = require "validator"
 BaseController = require "./BaseController"
 
 COMMANDS =
@@ -19,7 +20,7 @@ class CommandController extends BaseController
     @_session.on "executeCommand", @executeCommand
 
   executeCommand: (command, callback) =>
-    command = command.trim()
+    command = validator.escape command.trim()
     commandFound = false
 
     commandFound or= @_isCommand COMMANDS.refresh, command, =>

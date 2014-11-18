@@ -10,7 +10,8 @@
     "mongoose":      "= 3.8.19",
     "redis":         "= 0.12.1",
     "socket.io":     "= 1.2.0",
-    "stitch":        "= 0.3.3"
+    "stitch":        "= 0.3.3",
+    "validator":     "= 3.22.1"
   },
 
   "devDependencies": {
