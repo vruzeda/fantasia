@@ -4,7 +4,7 @@ http     = require "http"
 ApplicationConfigurator = require "./configurators/ApplicationConfigurator"
 DatabaseConfigurator    = require "./configurators/DatabaseConfigurator"
 SessionsConfigurator    = require "./configurators/SessionsConfigurator"
-RoutesConfigurator      = require "./configurators/RoutesConfigurator"
+
 
 
 application = express()
@@ -13,7 +13,7 @@ rootPath    = "#{__dirname}/.."
 serverPort  = parseInt process.env.NODE_PORT ? 5000
 
 
-applicationConfigurator = new ApplicationConfigurator rootPath
+applicationConfigurator = new ApplicationConfigurator rootPath, serverPort
 applicationConfigurator.configure application
 
 databaseConfigurator = new DatabaseConfigurator
@@ -21,9 +21,6 @@ databaseConfigurator.configure()
 
 sessionsConfigurator = new SessionsConfigurator
 sessionsConfigurator.configure server
-
-routesConfigurator = new RoutesConfigurator rootPath, serverPort
-routesConfigurator.configure application
 
 
 

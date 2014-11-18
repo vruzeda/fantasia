@@ -5,13 +5,18 @@
   "private": true,
 
   "dependencies": {
-    "coffee-script": "= 1.8.0",
-    "express":       "= 3.2.4",
-    "mongoose":      "= 3.8.19",
-    "redis":         "= 0.12.1",
-    "socket.io":     "= 1.2.0",
-    "stitch":        "= 0.3.3",
-    "validator":     "= 3.22.1"
+    "body-parser":     "= 1.9.2",
+    "coffee-script":   "= 1.8.0",
+    "errorhandler":    "= 1.2.2",
+    "express":         "= 4.10.2",
+    "method-override": "= 2.3.0",
+    "mongoose":        "= 3.8.19",
+    "morgan":          "= 1.5.0",
+    "redis":           "= 0.12.1",
+    "serve-static":    "= 1.7.1",
+    "socket.io":       "= 1.2.0",
+    "stitch":          "= 0.3.3",
+    "validator":       "= 3.22.1"
   },
 
   "devDependencies": {
