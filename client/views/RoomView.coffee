@@ -27,7 +27,7 @@ class RoomView extends BaseCommandView
         when 0
           exitsHtml = ""
         when 1
-          exitsHtml = "You see an exit at <a class=\"roomLink\" href=\"javascript:void(0);\">#{exits[0]}</a>"
+          exitsHtml = "You see an exit at <a class=\"roomLink\" href=\"javascript:void(0);\">#{exits[0]}</a>."
         else
           exitsHtml = "You see exits at "
           for exit, index in exits[0..-2]
