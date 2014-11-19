@@ -12,5 +12,5 @@ function redis_pid() {
 }
 
 function node_pid() {
-  parse_pid_for "$NODE_PATH/node"
+  parse_pid_for "$NODE_PATH/nodemon"
 }
