@@ -9,6 +9,7 @@
     "coffee-script":   "= 1.8.0",
     "errorhandler":    "= 1.2.2",
     "express":         "= 4.10.2",
+    "hbs":             "= 2.7.0",
     "method-override": "= 2.3.0",
     "mongoose":        "= 3.8.19",
     "morgan":          "= 1.5.0",

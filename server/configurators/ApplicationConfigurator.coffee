@@ -14,8 +14,9 @@ class ApplicationConfigurator
 
   configure: (application) ->
     application.set "views", "#{@_rootPath}/client/html"
+    application.set "view engine", "hbs"
     application.use morgan "dev"
-    application.use serveStatic "#{@_rootPath}/client/html"
+    application.use serveStatic "#{@_rootPath}/client/html", { index: false }
     application.use bodyParser.urlencoded { extended: false }
     application.use bodyParser.json()
     application.use methodOverride()
