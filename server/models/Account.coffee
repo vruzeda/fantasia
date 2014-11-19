@@ -10,6 +10,10 @@ AccountSchema = mongoose.Schema
     required: true
     unique: true
 
+  password:
+    type: String
+    required: true
+
   god:
     type: Boolean
     required: true
@@ -18,8 +22,8 @@ AccountSchema = mongoose.Schema
 AccountSchema.set "toObject", { virtuals: true }
 
 
-AccountSchema.statics.create = (username, callback) ->
-  account = new @ {username}
+AccountSchema.statics.create = (username, password, callback) ->
+  account = new @ {username, password}
   account.save (error) ->
     if error?
       console.error "Error creating account with username #{username}: #{error.message}"

@@ -13,8 +13,8 @@ class AccountController extends BaseController
     @_session.on "signIn",     @signIn
     @_session.on "disconnect", @signOut
 
-  signUp: (username, callback) =>
-    Account.create username, (error, account) =>
+  signUp: (username, password, callback) =>
+    Account.create username, password, (error, account) =>
       if error?
         callback error, undefined
         return

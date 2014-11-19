@@ -22,7 +22,9 @@ class AccountView
       $(".login .signUp").submit =>
         username = $(".login .signUp .username").val()
         $(".login .signUp .username").val ""
-        @_signUp username
+        password = $(".login .signUp .password").val()
+        $(".login .signUp .password").val ""
+        @_signUp username, password
 
       $(".login .signIn").unbind "submit"
       $(".login .signIn").submit =>
@@ -30,8 +32,8 @@ class AccountView
         $(".login .signIn .accountId").val ""
         @_signIn accountId
 
-  _signUp: (username) ->
-    @_session.accountController.signUp username, (error, account) =>
+  _signUp: (username, password) ->
+    @_session.accountController.signUp username, password, (error, account) =>
       if error?
         alert error.message
         return
