@@ -58,7 +58,7 @@ class AccountView
 
   _showHeader: (account) ->
     $(".header").show()
-    $(".header").html "Welcome, #{account.name}"
+    $(".header").html "Welcome, #{account.username}"
 
   _showFooter: (account) ->
     $(".footer").show()

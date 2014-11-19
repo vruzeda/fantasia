@@ -5,7 +5,7 @@ Models = require "./Models"
 
 AccountSchema = mongoose.Schema
 
-  name:
+  username:
     type: String
     required: true
     unique: true
@@ -18,11 +18,11 @@ AccountSchema = mongoose.Schema
 AccountSchema.set "toObject", { virtuals: true }
 
 
-AccountSchema.statics.create = (name, callback) ->
-  account = new @ {name}
+AccountSchema.statics.create = (username, callback) ->
+  account = new @ {username}
   account.save (error) ->
     if error?
-      console.error "Error creating account with name #{name}: #{error.message}"
+      console.error "Error creating account with username #{username}: #{error.message}"
       callback error, undefined
       return
 
