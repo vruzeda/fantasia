@@ -11,7 +11,7 @@ class AccountView
 
     else
       accountId = CookieManager.getItem "accountId"
-      @_signIn accountId
+      @_skipLogin accountId
 
   _showLogin: ->
       $(".header").html "Login"
@@ -28,9 +28,11 @@ class AccountView
 
       $(".login .signIn").unbind "submit"
       $(".login .signIn").submit =>
-        accountId = $(".login .signIn .accountId").val()
-        $(".login .signIn .accountId").val ""
-        @_signIn accountId
+        username = $(".login .signIn .username").val()
+        $(".login .signIn .username").val ""
+        password = $(".login .signIn .password").val()
+        $(".login .signIn .password").val ""
+        @_signIn username, password
 
   _signUp: (username, password) ->
     @_session.accountController.signUp username, password, (error, account) =>
@@ -41,8 +43,18 @@ class AccountView
       CookieManager.setItem "accountId", account.id
       @_hideLogin account
 
-  _signIn: (accountId) ->
-    @_session.accountController.signIn accountId, (error, account) =>
+  _signIn: (username, password) ->
+    @_session.accountController.signIn username, password, (error, account) =>
+      if error?
+        CookieManager.removeItem "accountId"
+        @_showLogin()
+        return
+
+      CookieManager.setItem "accountId", account.id
+      @_hideLogin account
+
+  _skipLogin: (accountId) ->
+    @_session.accountController.skipLogin accountId, (error, account) =>
       if error?
         CookieManager.removeItem "accountId"
         @_showLogin()

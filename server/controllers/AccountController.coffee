@@ -11,6 +11,7 @@ class AccountController extends BaseController
 
     @_session.on "signUp",     @signUp
     @_session.on "signIn",     @signIn
+    @_session.on "skipLogin",  @skipLogin
     @_session.on "disconnect", @signOut
 
   signUp: (username, password, callback) =>
@@ -22,7 +23,16 @@ class AccountController extends BaseController
       @_session.register account.id
       callback null, account.toObject()
 
-  signIn: (accountId, callback) =>
+  signIn: (username, password, callback) =>
+    Account.login username, password, (error, account) =>
+      if error?
+        callback error, undefined
+        return
+
+      @_session.register account.id
+      callback null, account.toObject()
+
+  skipLogin: (accountId, callback) =>
     Account.read accountId, (error, account) =>
       if error?
         callback error, undefined

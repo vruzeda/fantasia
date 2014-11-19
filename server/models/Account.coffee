@@ -52,5 +52,19 @@ AccountSchema.statics.read = (accountId, callback) ->
       console.error "Error reading account with ID #{accountId}: No such account"
       callback new Error("No such account"), undefined
 
+AccountSchema.statics.login = (username, password, callback) ->
+  @findOne {username, password}, (error, account) ->
+    if error?
+      console.error "Error reading account with username #{username}: #{error.message}"
+      callback error, undefined
+      return
+
+    if account?
+      callback null, account
+
+    else
+      console.error "Error reading account with username #{username}: No such account"
+      callback new Error("No such account"), undefined
+
 
 module.exports = mongoose.model "Account", AccountSchema
