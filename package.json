@@ -20,7 +20,7 @@
   },
 
   "devDependencies": {
-    "node-inspector": "= 0.1.10"
+    "node-inspector": "= 0.7.4"
   },
 
   "scripts": {
