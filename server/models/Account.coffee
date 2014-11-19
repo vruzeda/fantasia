@@ -15,8 +15,7 @@ AccountSchema = mongoose.Schema
     required: true
     default: false
 
-AccountSchema.options.toObject ?= {}
-AccountSchema.options.toObject.virtuals = true
+AccountSchema.set "toObject", { virtuals: true }
 
 
 AccountSchema.statics.create = (name, callback) ->

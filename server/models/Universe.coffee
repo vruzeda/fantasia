@@ -10,8 +10,7 @@ UniverseSchema = mongoose.Schema
     type: ObjectId
     required: true
 
-UniverseSchema.options.toObject ?= {}
-UniverseSchema.options.toObject.virtuals = true
+UniverseSchema.set "toObject", { virtuals: true }
 
 
 UniverseSchema.statics.create = (callback) ->

@@ -26,8 +26,7 @@ RoomSchema = mongoose.Schema
       required: true
   ]
 
-RoomSchema.options.toObject ?= {}
-RoomSchema.options.toObject.virtuals = true
+RoomSchema.set "toObject", { virtuals: true }
 
 
 RoomSchema.statics.create = (name, description, callback) ->

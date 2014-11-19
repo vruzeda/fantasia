@@ -23,8 +23,7 @@ CharacterSchema = mongoose.Schema
     type: ObjectId
     required: false
 
-CharacterSchema.options.toObject ?= {}
-CharacterSchema.options.toObject.virtuals = true
+CharacterSchema.set "toObject", { virtuals: true }
 
 
 CharacterSchema.statics.create = (accountId, callback) ->
