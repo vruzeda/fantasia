@@ -89,27 +89,45 @@ class RoomController extends BaseController
         callback new Error("Trying to close a link before starting one")
         return
 
-      Room.read character.linkingRoom, (error, roomA) =>
+      if character.currentRoom.equals character.linkingRoom
+        console.error "Error closing link for account ID #{character.accountId}: Trying to close a link in the same room"
+        callback new Error("Trying to close a link in the same room")
+        return
+
+      Character.closeLink character.accountId, (error) =>
         if error?
           callback error
           return
 
-        @_getCurrentRoom (error, roomB) =>
+        Room.read character.linkingRoom, (error, roomA) =>
           if error?
             callback error
             return
 
-          roomA.addExit character.linkingDirection, roomB, (error) =>
+          Room.read character.currentRoom, (error, roomB) =>
             if error?
               callback error
               return
 
-            roomB.addExit direction, roomA, (error) =>
+            directionA = character.linkingDirection
+            directionB = direction
+
+            if roomA.findExit directionA
+              console.error "Error closing link for account ID #{character.accountId}: Duplicated exit at \"#{directionA}\""
+              callback new Error("Duplicated exit at \"#{directionA}\"")
+              return
+
+            if roomB.findExit directionB
+              console.error "Error closing link for account ID #{character.accountId}: Duplicated exit at \"#{directionB}\""
+              callback new Error("Duplicated exit at \"#{directionB}\"")
+              return
+
+            roomA.addExit directionA, roomB, (error) =>
               if error?
                 callback error
                 return
 
-              Character.closeLink @_session.accountId, (error) =>
+              roomB.addExit directionB, roomA, (error) =>
                 if error?
                   callback error
                   return
