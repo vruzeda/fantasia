@@ -1,5 +1,3 @@
-$ = require "../libs/jquery"
-
 BaseCommandView = require "./BaseCommandView"
 
 

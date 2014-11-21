@@ -1,6 +1,3 @@
-$ = require "../libs/jquery"
-
-
 class BaseCommandView
 
   constructor: (session) ->

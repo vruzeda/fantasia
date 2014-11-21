@@ -1,6 +1,5 @@
-coffee   = require "coffee-script"
-socketIO = require "socket.io"
-stitch   = require "stitch"
+coffee = require "coffee-script"
+stitch = require "stitch"
 
 
 class RoutesConfigurator
@@ -25,7 +24,6 @@ class RoutesConfigurator
 
   configure: (application) ->
     application.get "/",             @_index
-    application.get "/socket.io.js", socketIO.prototype.serve
     application.get "/fatPack.js",   @_fatPackage.createServer()
 
   _index: (request, response) =>

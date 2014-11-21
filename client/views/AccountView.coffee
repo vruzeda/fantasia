@@ -1,5 +1,3 @@
-$ = require "../libs/jquery"
-
 CookieManager = require "../controllers/CookieManager"
 
 

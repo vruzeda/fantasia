@@ -12,6 +12,7 @@ class SessionManagerInstance
 
   _listenToServer: (serverPort) ->
     io = socketIO.listen serverPort + 1
+    io.serveClient false
     io.sockets.on "connection", (socket) =>
       session = new Session @, socket
 

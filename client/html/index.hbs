@@ -4,16 +4,18 @@
 
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 
-    <script type="text/javascript" src="/socket.io.js"></script>
-    <script type="text/javascript" src="/fatPack.js"></script>
-    <script type="text/javascript">
-      function load() {
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
+
+    <script src="/fatPack.js"></script>
+    <script>
+      $(function() {
         require("./index");
-      }
+      });
     </script>
   </head>
 
-  <body onload="javascript:load();">
+  <body>
     <div class="container">
       <h1 class="header"></h1>
 
