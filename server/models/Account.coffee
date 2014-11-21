@@ -1,6 +1,6 @@
 mongoose = require "mongoose"
-
-Models = require "./Models"
+Q        = require "q"
+Models   = require "./Models"
 
 
 AccountSchema = mongoose.Schema
@@ -22,49 +22,52 @@ AccountSchema = mongoose.Schema
 AccountSchema.set "toObject", { virtuals: true }
 
 
-AccountSchema.statics.create = (username, password, callback) ->
-  account = new @ {username, password}
-  account.save (error) ->
-    if error?
-      console.error "Error creating account with username #{username}: #{error.message}"
-      callback error, undefined
-      return
-
-    Character = Models.get "Character"
-    Character.create account.id, (error) ->
+AccountSchema.statics.create = (username, password) ->
+  Q.Promise (resolve, reject, notify) =>
+    account = new @ {username, password}
+    account.save (error) ->
       if error?
-        callback error, undefined
+        console.error "Error creating account with username #{username}: #{error.message}"
+        reject error
         return
 
-      callback null, account
+      Character = Models.get "Character"
+      Character.create account.id, (error) ->
+        if error?
+          reject error
+          return
 
-AccountSchema.statics.read = (accountId, callback) ->
-  @findById accountId, (error, account) ->
-    if error?
-      console.error "Error reading account with ID #{accountId}: #{error.message}"
-      callback error, undefined
-      return
+        resolve account
 
-    if account?
-      callback null, account
+AccountSchema.statics.read = (accountId) ->
+  Q.Promise (resolve, reject, notify) =>
+    @findById accountId, (error, account) ->
+      if error?
+        console.error "Error reading account with ID #{accountId}: #{error.message}"
+        reject error
+        return
 
-    else
-      console.error "Error reading account with ID #{accountId}: No such account"
-      callback new Error("No such account"), undefined
+      unless account?
+        console.error "Error reading account with ID #{accountId}: No such account"
+        reject new Error "No such account"
+        return
 
-AccountSchema.statics.login = (username, password, callback) ->
-  @findOne {username, password}, (error, account) ->
-    if error?
-      console.error "Error reading account with username #{username}: #{error.message}"
-      callback error, undefined
-      return
+      resolve account
 
-    if account?
-      callback null, account
+AccountSchema.statics.login = (username, password) ->
+  Q.Promise (resolve, reject, notify) =>
+    @findOne {username, password}, (error, account) ->
+      if error?
+        console.error "Error reading account with username #{username}: #{error.message}"
+        reject error
+        return
 
-    else
-      console.error "Error reading account with username #{username}: No such account"
-      callback new Error("No such account"), undefined
+      unless account?
+        console.error "Error reading account with username #{username}: No such account"
+        reject new Error "No such account"
+        return
+
+      resolve account
 
 
 module.exports = mongoose.model "Account", AccountSchema

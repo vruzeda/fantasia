@@ -1,6 +1,7 @@
+Q              = require "q"
 BaseController = require "./BaseController"
+Models         = require "../models/Models"
 
-Models  = require "../models/Models"
 Account = Models.get "Account"
 
 
@@ -15,13 +16,12 @@ class AccountController extends BaseController
     @_session.on "disconnect", @signOut
 
   signUp: (username, password, callback) =>
-    Account.create username, password, (error, account) =>
-      if error?
-        callback error, undefined
-        return
-
+    Account.create username, password
+    .then (account) =>
       @_session.register account.id
       callback null, account.toObject()
+    .fail (error) =>
+      callback error, undefined
 
   signIn: (username, password, callback) =>
     Account.login username, password, (error, account) =>
@@ -33,13 +33,12 @@ class AccountController extends BaseController
       callback null, account.toObject()
 
   skipLogin: (accountId, callback) =>
-    Account.read accountId, (error, account) =>
-      if error?
-        callback error, undefined
-        return
-
+    Account.read accountId
+    .then (account) =>
       @_session.register account.id
       callback null, account.toObject()
+    .fail (error) =>
+      callback error, undefined
 
   signOut: =>
     @_session.unregister()
