@@ -10,8 +10,16 @@ div.popover {
   box-shadow: 0px 0px 5px black;
   background-color: white; }
 
-div.helpContainer {
-  width: 600px; }
+div.help {
+  width: 600px;
+  max-width: inherit; }
 
 span.command {
   font-family: monospace; }
+
+.spacer {
+    height: 20px;
+}
+
+.room .description[contenteditable=true] {
+  height: auto; }

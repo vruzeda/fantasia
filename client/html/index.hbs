@@ -1,10 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Fantasia</title>
 
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/main.css">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="//cdn.socket.io/socket.io-1.2.1.js"></script>
 
     <script src="/fatPack.js"></script>
@@ -16,58 +23,98 @@
   </head>
 
   <body>
-    <div class="container">
-      <h1 class="header"></h1>
-
-      <div class="login">
-        <div>
-          <h2>Sign up</h2>
-          <form class="signUp" action="javascript:void(0);">
-            <input class="username" placeholder="Username" type="text"></input>
-            <input class="password" placeholder="Password" type="password"></input>
-            <input type="submit"></input>
-          </form>
-
-          <h2>Sign in</h2>
-          <form class="signIn" action="javascript:void(0);">
-            <input class="username" placeholder="Username" type="text"></input>
-            <input class="password" placeholder="Password" type="password"></input>
-            <input type="submit"></input>
-          </form>
-        </div>
+    <div class="login container">
+      <div class="row">
+        <h1 class="header">Login</h1>
       </div>
 
-      <div class="room">
-        <h2 class="title">Room</h2>
-        <span class="description">Description</span>
-        <span class="exits">Exits</span>
+      <div class="row">
+        <h2>Sign up</h2>
 
-        <form class="execute" action="javascript:void(0);">
-          <input class="command" type="text"></input>
+        <form class="signUp" role="form">
+          <div class="form-group">
+            <label for="signUpUsername" class="sr-only control-label">Username</label>
+            <input id="signUpUsername" class="username form-control" placeholder="Username" type="text"></input>
+          </div>
+
+          <div class="form-group">
+            <label for="signUpPassword" class="sr-only control-label">Password</label>
+            <input id="signUpPassword" class="password form-control" placeholder="Password" type="password"></input>
+          </div>
+
+          <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
 
-      <div class="popover helpContainer">
-        <div class="help">
-          <h2>Available commands:</h2>
-          <table>
-            <tr><td>Refresh                 </td><td><span class="command">refresh                                    </span></td></tr>
-            <tr><td>Create exit             </td><td><span class="command">create exit [exit name]                    </span></td></tr>
-            <tr><td>Start link between rooms</td><td>In Room A, <span class="command">start link [Room A's exit name] </span></td></tr>
-            <tr><td>Close link between rooms</td><td>In Room B, <span class="command">close link [Room B's exit name] </span></td></tr>
-            <tr><td>Rename exit             </td><td><span class="command">rename exit [old exit name]:[new exit name]</span></td></tr>
-            <tr><td>Rename room             </td><td><span class="command">rename room [new room name]                </span></td></tr>
-            <tr><td>Describe room           </td><td><span class="command">describe room [new room description]       </span></td></tr>
-            <tr><td>Move through exit       </td><td><span class="command">go [exit name]                             </span></td></tr>
-          </table>
-        </div>
+      <div class="row">
+        <h2>Sign in</h2>
+
+        <form class="signIn" role="form">
+          <div class="form-group">
+            <label for="signInUsername" class="sr-only control-label">Username</label>
+            <input id="signInUsername" class="username form-control" placeholder="Username" type="text"></input>
+          </div>
+
+          <div class="form-group">
+            <label for="signInPassword" class="sr-only control-label">Password</label>
+            <input id="signInPassword" class="password form-control" placeholder="Password" type="password"></input>
+          </div>
+
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="room container">
+      <div class="row">
+        <h1 class="header">Login</h1>
       </div>
 
-      <div class="footer">
-        <span>Account ID: </span><span class="accountId"></span>
-        <a class="helpButton" href="javascript:void(0);">Help</a>
-        <a class="logout" href="javascript:void(0);">Logout</a>
+      <div class="row">
+        <h2 class="title" contenteditable="false">Room</h2>
       </div>
+
+      <div class="row">
+        <div class="description" contenteditable="false">Description</div>
+      </div>
+
+      <div class="row">
+        <div class="exits">Exits</div>
+      </div>
+
+      <div class="row">
+        <div class="spacer"></div>
+      </div>
+
+      <div class="row">
+        <form class="execute">
+          <div class="form-group">
+            <label for="command" class="sr-only control-label">Command</label>
+            <input id="command" class="command form-control" placeholder="Command" type="text"></input>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer container">
+      <span>Account ID: </span><span class="accountId"></span>
+      <a class="edit" href="javascript:void(0);">Edit</a>
+      <a class="helpButton" href="javascript:void(0);">Help</a>
+      <a class="logout" href="javascript:void(0);">Logout</a>
+    </div>
+
+    <div class="help popover">
+      <h2>Available commands:</h2>
+      <table>
+        <tr><td>Refresh                 </td><td><span class="command">refresh                                    </span></td></tr>
+        <tr><td>Create exit             </td><td><span class="command">create exit [exit name]                    </span></td></tr>
+        <tr><td>Start link between rooms</td><td>In Room A, <span class="command">start link [Room A's exit name] </span></td></tr>
+        <tr><td>Close link between rooms</td><td>In Room B, <span class="command">close link [Room B's exit name] </span></td></tr>
+        <tr><td>Rename exit             </td><td><span class="command">rename exit [old exit name]:[new exit name]</span></td></tr>
+        <tr><td>Rename room             </td><td><span class="command">rename room [new room name]                </span></td></tr>
+        <tr><td>Describe room           </td><td><span class="command">describe room [new room description]       </span></td></tr>
+        <tr><td>Move through exit       </td><td><span class="command">go [exit name]                             </span></td></tr>
+      </table>
     </div>
   </body>
 </html>

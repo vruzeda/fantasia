@@ -22,8 +22,8 @@ class ViewManager
     @_views = {}
     @_views[viewName] = require "./#{viewName}" for viewName in VIEWS
 
-  changeViewTo: (viewName) ->
-    @currentView = new @_views[viewName] @_session
+  changeViewTo: (viewName, data...) ->
+    @currentView = new @_views[viewName] @_session, data...
 
 
 module.exports = ViewManager
