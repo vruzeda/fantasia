@@ -1,1 +1,1 @@
-module.exports = require "./jquery-2.0.1"
+module.exports = require "./jquery-2.1.1.min"
