@@ -20,24 +20,23 @@ class AccountController extends BaseController
     .then (account) =>
       @_session.register account.id
       callback null, account.toObject()
-    .fail (error) =>
+    .fail (error) ->
       callback error, undefined
 
   signIn: (username, password, callback) =>
-    Account.login username, password, (error, account) =>
-      if error?
-        callback error, undefined
-        return
-
+    Account.login username, password
+    .then (account) =>
       @_session.register account.id
       callback null, account.toObject()
+    .fail (error) ->
+      callback error, undefined
 
   skipLogin: (accountId, callback) =>
     Account.read accountId
     .then (account) =>
       @_session.register account.id
       callback null, account.toObject()
-    .fail (error) =>
+    .fail (error) ->
       callback error, undefined
 
   signOut: =>
