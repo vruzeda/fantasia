@@ -11,12 +11,12 @@ class RoomView extends BaseCommandView
     @_showRoom account
     @_showFooter()
 
-    @_session.roomController.getCurrentRoom (error, room) =>
+    @_session.roomController.getCurrentRoom (error, @_room) =>
       if error?
         alert error.message
         return
 
-      @drawRoom room
+      @drawRoom @_room
 
   drawRoom: (room) ->
     $(".room .title").html room.name
@@ -84,7 +84,10 @@ class RoomView extends BaseCommandView
       $(".room .exits .roomLink").blur (event) =>
         oldExitName = $(event.currentTarget).find(".oldExit").val()
         newExitName = $(event.currentTarget).text()
-        @_session.commandController.executeCommand "rename exit #{oldExitName}:#{newExitName}" if oldExitName != newExitName
+        if oldExitName != newExitName
+          @_session.commandController.executeCommand "rename exit #{oldExitName}:#{newExitName}"
+        else
+          @drawRoom @_room
 
     else
       $(".room .exits .roomLink").click (event) =>
