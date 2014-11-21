@@ -1,3 +1,15 @@
+.login, .room, .footer {
+  display: none; }
+
+.spacer {
+    height: 20px;
+}
+
+.room [contenteditable=true] {
+  height: auto; }
+
+/* TODO Remove this eventually! */
+
 h1 {
   color: blue;
 }
@@ -16,10 +28,3 @@ div.help {
 
 span.command {
   font-family: monospace; }
-
-.spacer {
-    height: 20px;
-}
-
-.room [contenteditable=true] {
-  height: auto; }
