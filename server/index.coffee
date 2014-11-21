@@ -7,7 +7,6 @@ SessionsConfigurator    = require "./configurators/SessionsConfigurator"
 
 
 application   = express()
-server        = http.createServer application
 rootPath      = "#{__dirname}/.."
 serverAddress = process.env.NODE_ADDRESS ? "localhost"
 serverPort    = parseInt process.env.NODE_PORT ? 5000
@@ -20,9 +19,9 @@ databaseConfigurator = new DatabaseConfigurator
 databaseConfigurator.configure()
 
 sessionsConfigurator = new SessionsConfigurator
-sessionsConfigurator.configure server
+sessionsConfigurator.configure serverPort
 
 
-
+server = http.createServer application
 server.listen serverPort
 console.log "Express server listening on port #{serverPort}"

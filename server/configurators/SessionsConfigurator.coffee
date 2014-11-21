@@ -3,9 +3,9 @@ Controllers = require "../controllers/Controllers"
 
 class SessionsConfigurator
 
-  configure: (server) ->
+  configure: (serverPort) ->
     SessionManager = Controllers.get("SessionManager")
-    SessionManager.configure server
+    SessionManager.configure serverPort
 
 
 module.exports = SessionsConfigurator

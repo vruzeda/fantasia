@@ -1,5 +1,6 @@
-stitch = require "stitch"
-coffee = require "coffee-script"
+coffee   = require "coffee-script"
+socketIO = require "socket.io"
+stitch   = require "stitch"
 
 
 class RoutesConfigurator
@@ -18,13 +19,14 @@ class RoutesConfigurator
 
   _clientConfiguration: ->
     clientConfiguration =
-      serverURL: "http://#{@_serverAddress}:#{@_serverPort}"
+      serverURL: "http://#{@_serverAddress}:#{@_serverPort + 1}"
 
     "module.exports = #{JSON.stringify clientConfiguration}"
 
   configure: (application) ->
-    application.get "/",           @_index
-    application.get "/fatPack.js", @_fatPackage.createServer()
+    application.get "/",             @_index
+    application.get "/socket.io.js", socketIO.prototype.serve
+    application.get "/fatPack.js",   @_fatPackage.createServer()
 
   _index: (request, response) =>
     response.render "index"

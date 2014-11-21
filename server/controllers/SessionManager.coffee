@@ -7,11 +7,11 @@ class SessionManagerInstance
   constructor: ->
     @_sessions = {}
 
-  configure: (server) ->
-    @_listenToServer server
+  configure: (serverPort) ->
+    @_listenToServer serverPort
 
-  _listenToServer: (server) ->
-    io = socketIO.listen server
+  _listenToServer: (serverPort) ->
+    io = socketIO.listen serverPort + 1
     io.sockets.on "connection", (socket) =>
       session = new Session @, socket
 
