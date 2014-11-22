@@ -25,96 +25,127 @@
   <body>
     <div class="login container">
       <div class="row">
-        <h1 class="header">Login</h1>
+        <h1 class="header col-xs-12">Login</h1>
       </div>
 
       <div class="row">
-        <h2>Sign up</h2>
+        <div class="col-xs-12 col-sm-6">
+          <h2>Sign up</h2>
 
-        <form class="signUp" role="form">
-          <div class="form-group">
-            <label for="signUpUsername" class="sr-only control-label">Username</label>
-            <input id="signUpUsername" class="username form-control" placeholder="Username" type="text"></input>
-          </div>
+          <form class="signUp" role="form">
+            <div class="form-group col-xs-12">
+              <label for="signUpUsername" class="sr-only control-label">Username</label>
+              <input id="signUpUsername" class="username form-control" placeholder="Username" type="text"></input>
+            </div>
 
-          <div class="form-group">
-            <label for="signUpPassword" class="sr-only control-label">Password</label>
-            <input id="signUpPassword" class="password form-control" placeholder="Password" type="password"></input>
-          </div>
+            <div class="form-group col-xs-12">
+              <label for="signUpPassword" class="sr-only control-label">Password</label>
+              <input id="signUpPassword" class="password form-control" placeholder="Password" type="password"></input>
+            </div>
 
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-default col-xs-12">Submit</button>
+            </div>
+          </form>
+        </div>
 
-      <div class="row">
-        <h2>Sign in</h2>
+        <div class="col-xs-12 col-sm-6">
+          <h2>Sign in</h2>
 
-        <form class="signIn" role="form">
-          <div class="form-group">
-            <label for="signInUsername" class="sr-only control-label">Username</label>
-            <input id="signInUsername" class="username form-control" placeholder="Username" type="text"></input>
-          </div>
+          <form class="signIn" role="form">
+            <div class="form-group col-xs-12">
+              <label for="signInUsername" class="sr-only control-label">Username</label>
+              <input id="signInUsername" class="username form-control" placeholder="Username" type="text"></input>
+            </div>
 
-          <div class="form-group">
-            <label for="signInPassword" class="sr-only control-label">Password</label>
-            <input id="signInPassword" class="password form-control" placeholder="Password" type="password"></input>
-          </div>
+            <div class="form-group col-xs-12">
+              <label for="signInPassword" class="sr-only control-label">Password</label>
+              <input id="signInPassword" class="password form-control" placeholder="Password" type="password"></input>
+            </div>
 
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-default col-xs-12">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
     <div class="room container">
       <div class="row">
-        <h1 class="header">Login</h1>
+        <h1 class="header col-xs-12">Welcome, user</h1>
       </div>
 
       <div class="row">
-        <h2 class="title" contenteditable="false">Room</h2>
+        <h2 class="title col-xs-12">
+          <div class="content" contenteditable="false">Room</div>
+        </h2>
       </div>
 
       <div class="row">
-        <div class="description" contenteditable="false">Description</div>
+        <div class="description col-xs-12">
+          <div class="content" contenteditable="false">Description</div>
+        </div>
       </div>
 
       <div class="row">
-        <div class="exits">Exits</div>
+        <div class="exits col-xs-12">Exits</div>
       </div>
+    </div>
 
+    <div class="footer container">
       <div class="row">
-        <div class="spacer"></div>
-      </div>
-
-      <div class="row">
-        <form class="execute">
+        <form class="execute col-xs-12">
           <div class="form-group">
             <label for="command" class="sr-only control-label">Command</label>
             <input id="command" class="command form-control" placeholder="Command" type="text"></input>
           </div>
         </form>
       </div>
-    </div>
 
-    <div class="footer container">
-      <span>Account ID: </span><span class="accountId"></span>
-      <a class="edit" href="javascript:void(0);">Edit</a>
-      <a class="helpButton" href="javascript:void(0);">Help</a>
-      <a class="logout" href="javascript:void(0);">Logout</a>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="edit btn btn-default col-xs-12 col-sm-offset-0 col-sm-2">Edit</button>
+          <button type="submit" class="help btn btn-default col-xs-12 col-sm-offset-5 col-sm-2">Help</button>
+          <button type="submit" class="exit btn btn-default col-xs-12 col-sm-offset-1 col-sm-2">Logout</button>
+        </div>
+      </div>
     </div>
 
     <div class="help popover">
-      <h2>Available commands:</h2>
-      <table>
-        <tr><td>Refresh                 </td><td><span class="command">refresh                                    </span></td></tr>
-        <tr><td>Create exit             </td><td><span class="command">create exit [exit name]                    </span></td></tr>
-        <tr><td>Start link between rooms</td><td>In Room A, <span class="command">start link [Room A's exit name] </span></td></tr>
-        <tr><td>Close link between rooms</td><td>In Room B, <span class="command">close link [Room B's exit name] </span></td></tr>
-        <tr><td>Rename exit             </td><td><span class="command">rename exit [old exit name]:[new exit name]</span></td></tr>
-        <tr><td>Rename room             </td><td><span class="command">rename room [new room name]                </span></td></tr>
-        <tr><td>Describe room           </td><td><span class="command">describe room [new room description]       </span></td></tr>
-        <tr><td>Move through exit       </td><td><span class="command">go [exit name]                             </span></td></tr>
-      </table>
+      <div class="container">
+        <div class="row">
+          <h2 class="col-xs-12">Available commands:</h2>
+        </div>
+
+        <div class="row">
+          <dl class="col-xs-12">
+            <dt><kbd class="command">refresh</kbd></dt>
+            <dd>Refresh</dd>
+
+            <dt><kbd class="command">create exit <var>exit name</var></kbd></dt>
+            <dd>Create exit</dd>
+
+            <dt><kbd class="command">start link <var>Room A's exit name</var></kbd></dt>
+            <dd>Start link between rooms</dd>
+
+            <dt><kbd class="command">close link <var>Room B's exit name</var></kbd></dt>
+            <dd>Close link between rooms</dd>
+
+            <dt><kbd class="command">rename exit <var>old exit name</var>:<var>new exit name</var></kbd></dt>
+            <dd>Rename exit</dd>
+
+            <dt><kbd class="command">rename room <var>new room name</var></kbd></dt>
+            <dd>Rename room</dd>
+
+            <dt><kbd class="command">describe room <var>new room description</var></kbd></dt>
+            <dd>Describe room</dd>
+
+            <dt><kbd class="command">go <var>exit name</var></kbd></dt>
+            <dd>Move through exit</dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </body>
 </html>

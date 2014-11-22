@@ -19,12 +19,12 @@ class RoomView extends BaseCommandView
       @drawRoom @_room
 
   drawRoom: (room) ->
-    $(".room .title").html room.name
-    $(".room .title").blur (event) =>
+    $(".room .title .content").html room.name
+    $(".room .title .content").blur (event) =>
       @_session.commandController.executeCommand "rename room #{$(event.currentTarget).text()}"
 
-    $(".room .description").html room.description.replace /([^.!?])$/, "$1."
-    $(".room .description").blur (event) =>
+    $(".room .description .content").html room.description.replace /([^.!?])$/, "$1."
+    $(".room .description .content").blur (event) =>
       @_session.commandController.executeCommand "describe room #{$(event.currentTarget).text()}"
 
     if room.exits?
@@ -56,22 +56,22 @@ class RoomView extends BaseCommandView
     $(".footer .edit").click =>
       @_toogleEdit()
 
-    $(".footer .helpButton").click ->
-      $(".help").show "linear", ->
-        $("body").click ->
-          $(".help").hide "linear", ->
-            $("body").off "click"
+    $(".footer .help").popover
+      placement: "top"
+      trigger: "click"
+      content: $(".help.popover").html()
+      html: true
 
-    $(".footer .logout").click =>
+    $(".footer .exit").click =>
       CookieManager.removeItem "accountId"
       @_showLogin()
 
   _toogleEdit: ->
     @_edit = not @_edit
-    $(".room .title").prop "contenteditable", @_edit
-    $(".room .title").toggleClass "form-control", @_edit
-    $(".room .description").prop "contenteditable", @_edit
-    $(".room .description").toggleClass "form-control", @_edit
+    $(".room .title .content").prop "contenteditable", @_edit
+    $(".room .title .content").toggleClass "form-control", @_edit
+    $(".room .description .content").prop "contenteditable", @_edit
+    $(".room .description .content").toggleClass "form-control", @_edit
     @_bindExits()
 
   _bindExits: ->
