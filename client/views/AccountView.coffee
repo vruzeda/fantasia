@@ -12,7 +12,7 @@ class AccountView
       @_skipLogin accountId
 
   _showLogin: ->
-      $(".login").show()
+      $(".login").removeClass "hidden"
       $(".login .signUp").off "submit"
       $(".login .signUp").submit (event) =>
         event.preventDefault()
@@ -63,7 +63,7 @@ class AccountView
       @_showRoom account
 
   _showRoom: (account) ->
-    $(".login").hide()
+    $(".login").addClass "hidden"
     @_session.viewManager.changeViewTo "RoomView", account
 
 

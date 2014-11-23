@@ -1,36 +1,16 @@
 html, body {
   height: 100%; }
 
-.login.container, .room.container, .footer.container {
-  display: none; }
-
-.room.container {
-  min-height: 100%;
+.room.container .content[contenteditable=true] {
   height: auto;
-  margin: 0 auto -170px; }
-  .room.container .content[contenteditable=true] {
-    height: auto;
-    font-size: inherit; }
+  font-size: inherit; }
 
-.footer.container {
-  height: 170px; }
-
-@media (min-width: 768px) {
-  .room.container {
-    margin: 0 auto -100px; }
-
-  .footer.container {
-    height: 100px; }
-}
-
-.popover {
-  max-width: 370px; }
+.help.container-fluid {
+  max-height: 200px;
+  overflow-y: auto; }
 
 /* TODO Remove this eventually! */
 
 h1 {
   color: blue;
 }
-
-span.command {
-  font-family: monospace; }

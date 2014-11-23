@@ -9,7 +9,7 @@ class RoomView extends BaseCommandView
 
     @_edit = false
     @_showRoom account
-    @_showFooter()
+    @_showNavBarActions()
 
     @_session.roomController.getCurrentRoom (error, @_room) =>
       if error?
@@ -46,28 +46,32 @@ class RoomView extends BaseCommandView
       $(".room .exits").html exitsHtml
       @_bindExits()
 
-  _showRoom: (account) ->
-    $(".room").show()
-    $(".room .header").html "Welcome, #{account.username}"
+  _showNavBarActions: ->
+    $(".navbaractions").removeClass "hidden"
 
-  _showFooter: ->
-    $(".footer").show()
+    $(".navbaractions .edit").click =>
+      @_toggleEdit()
 
-    $(".footer .edit").click =>
-      @_toogleEdit()
-
-    $(".footer .help").popover
-      placement: "top"
-      trigger: "click"
-      content: $(".help.popover").html()
-      html: true
-
-    $(".footer .exit").click =>
+    $(".navbaractions .exit").click =>
       CookieManager.removeItem "accountId"
       @_showLogin()
 
-  _toogleEdit: ->
+  _showRoom: (account) ->
+    $(".room").removeClass "hidden"
+    $(".room .header").html "Welcome, #{account.username}"
+
+    $(".help.btn").click ->
+      $(".help.btn").toggleClass "active"
+    $(".help.btn").popover
+      placement: "left"
+      trigger: "click"
+      title: "Available commands"
+      content: $(".help.popover").html()
+      html: true
+
+  _toggleEdit: ->
     @_edit = not @_edit
+    $(".navbaractions .edit").parent().toggleClass "active", @_edit
     $(".room .title .content").prop "contenteditable", @_edit
     $(".room .title .content").toggleClass "form-control", @_edit
     $(".room .description .content").prop "contenteditable", @_edit
@@ -93,10 +97,9 @@ class RoomView extends BaseCommandView
       $(".room .exits .roomLink").click (event) =>
         @_session.commandController.executeCommand "go #{$(event.currentTarget).text()}"
 
-
   _showLogin: ->
-    $(".room").hide()
-    $(".footer").hide()
+    $(".navbaractions").addClass "hidden"
+    $(".room").addClass "hidden"
     @_session.viewManager.changeViewTo "AccountView"
 
   _getExitHTML: (exit) ->

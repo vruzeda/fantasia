@@ -23,7 +23,29 @@
   </head>
 
   <body>
-    <div class="login container">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbaractions navbar-toggle collapsed" data-toggle="collapse" data-target="#navbaractions-group">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <span class="navbar-brand">Fantasia</span>
+        </div>
+
+        <div class="navbaractions collapse navbar-collapse hidden" id="navbaractions-group">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a class="edit">Edit</a></li>
+            <li><a class="exit">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="login container hidden">
       <div class="row">
         <h1 class="header col-xs-12">Login</h1>
       </div>
@@ -44,7 +66,7 @@
             </div>
 
             <div class="col-xs-12">
-              <button type="submit" class="btn btn-default col-xs-12">Submit</button>
+              <button type="submit" class="btn btn-primary col-xs-12">Submit</button>
             </div>
           </form>
         </div>
@@ -64,14 +86,14 @@
             </div>
 
             <div class="col-xs-12">
-              <button type="submit" class="btn btn-default col-xs-12">Submit</button>
+              <button type="submit" class="btn btn-primary col-xs-12">Submit</button>
             </div>
           </form>
         </div>
       </div>
     </div>
 
-    <div class="room container">
+    <div class="room container hidden">
       <div class="row">
         <h1 class="header col-xs-12">Welcome, user</h1>
       </div>
@@ -91,33 +113,20 @@
       <div class="row">
         <div class="exits col-xs-12">Exits</div>
       </div>
-    </div>
 
-    <div class="footer container">
       <div class="row">
-        <form class="execute col-xs-12">
+        <form class="execute col-xs-10">
           <div class="form-group">
             <label for="command" class="sr-only control-label">Command</label>
             <input id="command" class="command form-control" placeholder="Command" type="text"></input>
           </div>
         </form>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <button type="submit" class="edit btn btn-default col-xs-12 col-sm-offset-0 col-sm-2">Edit</button>
-          <button type="submit" class="help btn btn-default col-xs-12 col-sm-offset-5 col-sm-2">Help</button>
-          <button type="submit" class="exit btn btn-default col-xs-12 col-sm-offset-1 col-sm-2">Logout</button>
-        </div>
+        <button type="submit" class="help btn btn-default">Help</button>
       </div>
     </div>
 
     <div class="help popover">
-      <div class="container">
-        <div class="row">
-          <h2 class="col-xs-12">Available commands:</h2>
-        </div>
-
+      <div class="help container-fluid">
         <div class="row">
           <dl class="col-xs-12">
             <dt><kbd class="command">refresh</kbd></dt>
