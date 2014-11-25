@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Fantasia</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <script src="/fatPack.js"></script>
+    <script>
+      $(function() {
+        require("./entries/login");
+      });
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <span class="navbar-brand">Fantasia</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="login container">
+      <div class="row">
+        <h1 class="header col-xs-12">Login</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h2>Sign up</h2>
+
+          <form class="signUp" role="form">
+            <div class="form-group col-xs-12">
+              <label for="signUpUsername" class="sr-only control-label">Username</label>
+              <input id="signUpUsername" name="username" class="username form-control" placeholder="Username" type="text"></input>
+            </div>
+
+            <div class="form-group col-xs-12">
+              <label for="signUpPassword" class="sr-only control-label">Password</label>
+              <input id="signUpPassword" name="password" class="password form-control" placeholder="Password" type="password"></input>
+            </div>
+
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-primary col-xs-12">Submit</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+          <h2>Sign in</h2>
+
+          <form class="signIn" role="form">
+            <div class="form-group col-xs-12">
+              <label for="signInUsername" class="sr-only control-label">Username</label>
+              <input id="signInUsername" name="username" class="username form-control" placeholder="Username" type="text"></input>
+            </div>
+
+            <div class="form-group col-xs-12">
+              <label for="signInPassword" class="sr-only control-label">Password</label>
+              <input id="signInPassword" name="password" class="password form-control" placeholder="Password" type="password"></input>
+            </div>
+
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-primary col-xs-12">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
