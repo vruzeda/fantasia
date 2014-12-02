@@ -50,9 +50,3 @@
 .popover .container-fluid {
   max-height: 200px;
   overflow-y: auto; }
-
-/* TODO Remove this eventually! */
-
-h1 {
-  color: blue;
-}
