@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbaractions navbar-toggle collapsed" data-toggle="collapse" data-target="#navbaractions-group">
@@ -36,7 +36,7 @@
           <span class="navbar-brand">Fantasia</span>
         </div>
 
-        <div class="navbaractions collapse navbar-collapse hidden" id="navbaractions-group">
+        <div class="navbaractions collapse navbar-collapse" id="navbaractions-group">
           <ul class="nav navbar-nav navbar-right">
             <li><a class="edit">Edit</a></li>
             <li><a class="exit">Logout</a></li>
@@ -45,7 +45,7 @@
       </div>
     </nav>
 
-    <div class="room container hidden">
+    <div class="room container">
       <div class="row">
         <h1 class="header col-xs-12">Welcome, user</h1>
       </div>
@@ -65,17 +65,19 @@
       <div class="row">
         <div class="exits col-xs-12">Exits</div>
       </div>
+    </div>
 
-      <div class="row">
-        <form class="execute col-xs-10">
-          <div class="form-group">
+    <nav class="command navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <div class="container-fluid">
+        <form class="execute navbar-form navbar-left">
+          <div class="form-group col-xs-10">
             <label for="command" class="sr-only control-label">Command</label>
             <input id="command" class="command form-control" placeholder="Command" type="text"></input>
           </div>
+          <button type="button" class="help btn btn-default col-xs-2">Help</button>
         </form>
-        <button type="submit" class="help btn btn-default">Help</button>
       </div>
-    </div>
+    </nav>
 
     <div class="help popover">
       <div class="help container-fluid">

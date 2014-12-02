@@ -47,23 +47,20 @@ class RoomView extends BaseCommandView
       @_bindExits()
 
   _showNavBarActions: ->
-    $(".navbaractions").removeClass "hidden"
-
     $(".navbaractions .edit").click =>
       @_toggleEdit()
 
     $(".navbaractions .exit").click =>
       CookieManager.removeItem "accountId"
-      @_showLogin()
+      @_session.viewManager.changeViewTo "AccountView"
 
   _showRoom: (account) ->
-    $(".room").removeClass "hidden"
     $(".room .header").html "Welcome, #{account.username}"
 
     $(".help.btn").click ->
       $(".help.btn").toggleClass "active"
     $(".help.btn").popover
-      placement: "left"
+      placement: "top"
       trigger: "click"
       title: "Available commands"
       content: $(".help.popover").html()
@@ -96,11 +93,6 @@ class RoomView extends BaseCommandView
     else
       $(".room .exits .roomLink").click (event) =>
         @_session.commandController.executeCommand "go #{$(event.currentTarget).text()}"
-
-  _showLogin: ->
-    $(".navbaractions").addClass "hidden"
-    $(".room").addClass "hidden"
-    @_session.viewManager.changeViewTo "AccountView"
 
   _getExitHTML: (exit) ->
     "<a class=\"roomLink\" href=\"javascript:void(0);\"><input class=\"oldExit\" type=\"hidden\" value=\"#{exit}\"></input>#{exit}</a>"

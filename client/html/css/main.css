@@ -1,11 +1,53 @@
-html, body {
-  height: 100%; }
-
+.room.container {
+  padding-top: 70px;
+  padding-bottom: 70px; }
 .room.container .content[contenteditable=true] {
   height: auto;
   font-size: inherit; }
 
-.help.container-fluid {
+@media (max-width: 768px) {
+  .command.navbar .navbar-form {
+    margin-top: 8px;
+    margin-bottom: 0;
+    border-top: 0;
+    border-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0; }
+
+  .command.navbar .navbar-form .form-group {
+    padding-left: 0; }
+}
+
+@media (min-width: 768px) {
+  .command.navbar .navbar-form {
+    width: 100%; }
+
+  .command.navbar .navbar-form .form-group {
+    padding-left: 0; }
+
+  .command.navbar .navbar-form .form-group .form-control {
+    width: 100%; }
+}
+
+.command.navbar .form-group {
+  display: inline-block; }
+
+@media (max-width: 768px) {
+  .popover {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100%;
+    max-width: inherit; }
+}
+
+@media (min-width: 768px) {
+  .popover {
+    left: inherit !important;
+    right: 0 !important;
+    max-width: inherit; }
+}
+
+.popover .container-fluid {
   max-height: 200px;
   overflow-y: auto; }
 
